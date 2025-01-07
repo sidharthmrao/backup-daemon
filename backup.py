@@ -1,5 +1,3 @@
-#!/bin/python
-
 # Thank you to chatgpt for writing all this code in 5 minutes
 
 import os
@@ -8,7 +6,7 @@ import subprocess
 from datetime import datetime
 
 CONFIG_PATH = os.path.expanduser("~/.config/backup_daemon/config.cfg")
-CHECK_INTERVAL = 15  # Time interval to check the config file (in seconds)
+CHECK_INTERVAL = 60  # Time interval to check the config file (in seconds)
 
 
 def ensure_config_exists(file_path):
