@@ -4,7 +4,7 @@ import subprocess
 from datetime import datetime
 
 CONFIG_PATH = os.path.expanduser("~/.config/backup_daemon/config.cfg")
-CHECK_INTERVAL = 15  # Time interval to check the config file (in seconds)
+CHECK_INTERVAL = 60  # Time interval to check the config file (in seconds)
 
 
 def ensure_config_exists(file_path):
@@ -56,13 +56,14 @@ def set_remote_url(folder, remote_url):
         print(f"Error setting remote URL for {folder}: {e}")
 
 
-def fetch_changes(folder):
-    """Fetch changes from the remote repository."""
+def fetch_and_pull(folder):
+    """Fetch and pull changes from the remote repository."""
     try:
         subprocess.run(["git", "-C", folder, "fetch", "--all"], check=True)
-        print(f"Fetched updates for {folder}.")
+        subprocess.run(["git", "-C", folder, "pull", "origin", "main"], check=True)
+        print(f"Fetched and pulled updates for {folder}.")
     except subprocess.CalledProcessError as e:
-        print(f"Error fetching updates for {folder}: {e}")
+        print(f"Error fetching or pulling updates for {folder}: {e}")
 
 
 def initialize_git_repo(folder, remote_url):
@@ -85,7 +86,7 @@ def commit_and_push(folder, remote_url):
     """Commit changes and push to the remote repository."""
     try:
         set_remote_url(folder, remote_url)
-        fetch_changes(folder)  # Fetch changes first
+        fetch_and_pull(folder)  # Fetch and pull changes first
         subprocess.run(["git", "-C", folder, "add", "."], check=True)
         status_result = subprocess.run(["git", "-C", folder, "status", "--porcelain"], capture_output=True, text=True)
         if status_result.stdout.strip():  # If there are changes to commit
