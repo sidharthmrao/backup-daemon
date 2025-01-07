@@ -1,3 +1,7 @@
+#!/bin/python
+
+# Thank you to chatgpt for writing all this code in 5 minutes
+
 import os
 import time
 import subprocess
