@@ -1,0 +1,7 @@
+{
+    "global_options": {
+        "enabled": true,
+        "check_interval": 300
+    },
+    "backup_locations": []
+}
