@@ -6,7 +6,7 @@ import subprocess
 from datetime import datetime
 
 # Interval in seconds between checks
-CHECK_INTERVAL = 120  
+CHECK_INTERVAL = 300  
 
 # Path to the config file
 CONFIG_FILE_PATH = os.path.expanduser("~/.config/backup_daemon/config.cfg")
